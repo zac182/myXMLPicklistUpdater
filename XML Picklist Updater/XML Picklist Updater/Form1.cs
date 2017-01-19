@@ -132,6 +132,14 @@ namespace XML_Picklist_Updater
                 writer = XmlWriter.Create(folderBrowserDialog1.SelectedPath + "\\" + filename, settings);
                 doc1.Save(writer);
                 writer.Close();
+                string xmlString = System.IO.File.ReadAllText(folderBrowserDialog1.SelectedPath + "\\" + filename);
+                string xmlpart1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+                string xmlpart2 = xmlString.Substring(38);
+                using (StreamWriter sw = File.CreateText(folderBrowserDialog1.SelectedPath + "\\" + filename))
+                {
+                    sw.Write(xmlpart1 + xmlpart2);
+                    sw.WriteLine("");
+                }
             }
         }
     }

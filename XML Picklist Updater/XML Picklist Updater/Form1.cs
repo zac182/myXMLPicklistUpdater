@@ -78,9 +78,10 @@ namespace XML_Picklist_Updater
                         XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
                         if (checkedListBox1.CheckedItems.Contains(eFullName[0].InnerText))
                         {
+                            XmlNode pNode = fElem.GetElementsByTagName("picklist")[0];
                             XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
                             XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
-                            foreach (XmlElement ffElem in fNode)
+                            foreach (XmlElement ffElem in ffNode)
                             {
                                 XmlNodeList eeType = ffElem.GetElementsByTagName("type");
                                 if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
@@ -88,7 +89,9 @@ namespace XML_Picklist_Updater
                                     XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
                                     if (eFullName[0].InnerText == eeFullName[0].InnerText)
                                     {
-                                        fElem.ReplaceChild(ffElem.GetElementsByTagName("picklist")[0], fElem.GetElementsByTagName("picklist")[0]);
+                                        XmlNode ppNode = ffElem.GetElementsByTagName("picklist")[0];
+                                        fElem.ReplaceChild(ppNode, pNode);
+                                        break;
                                     }
                                 }
                             }
@@ -110,7 +113,7 @@ namespace XML_Picklist_Updater
                                 XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
                                 foreach (XmlElement ppvvElem in eePicklistValue)
                                 {
-                                    if (pvElem.GetElementsByTagName("picklist")[0].InnerText == ppvvElem.GetElementsByTagName("picklist")[0].InnerText)
+                                    if (pvElem.SelectSingleNode("picklist").InnerText == ppvvElem.SelectSingleNode("picklist").InnerText)
                                     {
                                         doc1.ReplaceChild(ppvvElem, pvElem);
                                     }

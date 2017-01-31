@@ -110,7 +110,7 @@ namespace XML_Picklist_Updater
                                 XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
                                 foreach (XmlElement ppvvElem in eePicklistValue)
                                 {
-                                    if (pvElem.GetElementsByTagName("picklist")[0].InnerText == ppvvElem.GetElementsByTagName("picklist")[0].InnerText)
+                                    if (pvElem.GetElementsByTagName("valueSet")[0].InnerText == ppvvElem.GetElementsByTagName("valueSet")[0].InnerText)
                                     {
                                         doc1.ReplaceChild(ppvvElem, pvElem);
                                     }

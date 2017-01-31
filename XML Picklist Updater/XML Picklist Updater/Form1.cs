@@ -88,7 +88,7 @@ namespace XML_Picklist_Updater
                                     XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
                                     if (eFullName[0].InnerText == eeFullName[0].InnerText)
                                     {
-                                        fElem.ReplaceChild(ffElem.GetElementsByTagName("picklist")[0], fElem.GetElementsByTagName("picklist")[0]);
+                                        fElem.ReplaceChild(ffElem.GetElementsByTagName("valueSet")[0], fElem.GetElementsByTagName("valueSet")[0]);
                                     }
                                 }
                             }

@@ -29,13 +29,13 @@ namespace XML_Picklist_Updater
             if (result1 == DialogResult.OK)
             {
                 doc1.Load(openFileDialog1.FileName);
-                DialogResult result2 = openFileDialog1.ShowDialog();
+                DialogResult result2 = openFileDialog2.ShowDialog();
                 if (result2 == DialogResult.OK)
                 {
                     button2.Enabled = true;
                     filename = openFileDialog1.SafeFileName;
                     label1.Text = filename;
-                    doc2.Load(openFileDialog1.FileName);
+                    doc2.Load(openFileDialog2.FileName);
                     XmlNodeList iNode = doc1.GetElementsByTagName("CustomObject");
                     XmlNodeList fNode = ((XmlElement)iNode[0]).GetElementsByTagName("fields");
                     foreach (XmlElement fElem in fNode)
@@ -88,18 +88,31 @@ namespace XML_Picklist_Updater
                                 foreach (XmlElement ffElem in fNode)
                                 {
                                     XmlNodeList eeType = ffElem.GetElementsByTagName("type");
-                                    if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
+                                    if (eeType.Count != 0)
                                     {
-                                        XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
-                                        if (eFullName[0].InnerText == eeFullName[0].InnerText)
+                                        if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
                                         {
-                                            try
+                                            XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
+                                            if (eFullName[0].InnerText == eeFullName[0].InnerText)
                                             {
-                                                fElem.ReplaceChild(ffElem.GetElementsByTagName("valueSet")[0], fElem.GetElementsByTagName("valueSet")[0]);
-                                            }
-                                            catch
-                                            {
-                                                MessageBox.Show("Please ensure that both files selected are post API38 \nand do not contain \"picklistValue\" instead of valueset");
+                                                try
+                                                {
+                                                    XmlNodeList vsNode = fElem.GetElementsByTagName("valueSet");
+                                                    XmlNodeList vvssNode = ffElem.GetElementsByTagName("valueSet");
+                                                    foreach (XmlElement vsElem in vsNode)
+                                                    {
+                                                        vsElem.RemoveAll();
+                                                        foreach (XmlElement vvssElem in vvssNode)
+                                                        {
+                                                            XmlNode importNode = doc1.ImportNode(vvssElem, true);
+                                                            vsElem.AppendChild(importNode);
+                                                        }
+                                                    }
+                                                }
+                                                catch
+                                                {
+                                                    MessageBox.Show("Please ensure that both files selected are post API38 \nand do not contain \"picklistValue\" instead of valueset");
+                                                }
                                             }
                                         }
                                     }
@@ -120,12 +133,20 @@ namespace XML_Picklist_Updater
                             XmlNodeList rrNode = ((XmlElement)iiNode[0]).GetElementsByTagName("recordTypes");
                             foreach (XmlElement rrElem in rrNode)
                             {
-                                XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
-                                foreach (XmlElement ppvvElem in eePicklistValue)
+                                if (rrElem.GetElementsByTagName("fullName")[0].InnerText == rElem.GetElementsByTagName("fullName")[0].InnerText)
                                 {
-                                    if (pvElem.GetElementsByTagName("valueSet")[0].InnerText == ppvvElem.GetElementsByTagName("valueSet")[0].InnerText)
+                                    XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
+                                    foreach (XmlElement ppvvElem in eePicklistValue)
                                     {
-                                        doc1.ReplaceChild(ppvvElem, pvElem);
+                                        if (pvElem.GetElementsByTagName("picklist")[0].InnerText == ppvvElem.GetElementsByTagName("picklist")[0].InnerText)
+                                        {
+                                            pvElem.RemoveAll();
+                                            foreach (XmlElement node in ppvvElem)
+                                            {
+                                                XmlNode importNode = doc1.ImportNode(node, true);
+                                                pvElem.AppendChild(importNode);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -147,10 +168,26 @@ namespace XML_Picklist_Updater
                 writer.Close();
                 string xmlString = System.IO.File.ReadAllText(folderBrowserDialog1.SelectedPath + "\\" + filename);
                 string xmlpart1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-                string xmlpart2 = xmlString.Substring(38);
+                string xmlpart2 = xmlString.Substring(38, 65);
+                string xmlpart3 = xmlString.Substring(103);
+                string removable1 = "\'";
+                string removable2 = "\"";
+                string removable3 = " />";
+                while (xmlpart3.Contains(removable1))
+                {
+                    xmlpart3 = xmlpart3.Replace(removable1, "&apos;");
+                }
+                while (xmlpart3.Contains(removable2))
+                {
+                    xmlpart3 = xmlpart3.Replace(removable2, "&quot;");
+                }
+                while (xmlpart3.Contains(removable3))
+                {
+                    xmlpart3 = xmlpart3.Replace(removable3, "/>");
+                }
                 using (StreamWriter sw = File.CreateText(folderBrowserDialog1.SelectedPath + "\\" + filename))
                 {
-                    sw.Write(xmlpart1 + xmlpart2);
+                    sw.Write(xmlpart1 + xmlpart2 + xmlpart3);
                     sw.WriteLine("");
                 }
             }

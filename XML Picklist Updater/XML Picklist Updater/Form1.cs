@@ -41,10 +41,13 @@ namespace XML_Picklist_Updater
                     foreach (XmlElement fElem in fNode)
                     {
                         XmlNodeList eType = fElem.GetElementsByTagName("type");
-                        if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
+                        if (eType.Count != 0)
                         {
-                            XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
-                            checkedListBox1.Items.Add(eFullName[0].InnerText);
+                            if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
+                            {
+                                XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
+                                checkedListBox1.Items.Add(eFullName[0].InnerText);
+                            }
                         }
                     }
                 }
@@ -73,22 +76,32 @@ namespace XML_Picklist_Updater
                 foreach (XmlElement fElem in fNode)
                 {
                     XmlNodeList eType = fElem.GetElementsByTagName("type");
-                    if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
+                    if (eType.Count != 0)
                     {
-                        XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
-                        if (checkedListBox1.CheckedItems.Contains(eFullName[0].InnerText))
+                        if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
                         {
-                            XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
-                            XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
-                            foreach (XmlElement ffElem in fNode)
+                            XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
+                            if (checkedListBox1.CheckedItems.Contains(eFullName[0].InnerText))
                             {
-                                XmlNodeList eeType = ffElem.GetElementsByTagName("type");
-                                if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
+                                XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
+                                XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
+                                foreach (XmlElement ffElem in fNode)
                                 {
-                                    XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
-                                    if (eFullName[0].InnerText == eeFullName[0].InnerText)
+                                    XmlNodeList eeType = ffElem.GetElementsByTagName("type");
+                                    if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
                                     {
-                                        fElem.ReplaceChild(ffElem.GetElementsByTagName("valueSet")[0], fElem.GetElementsByTagName("valueSet")[0]);
+                                        XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
+                                        if (eFullName[0].InnerText == eeFullName[0].InnerText)
+                                        {
+                                            try
+                                            {
+                                                fElem.ReplaceChild(ffElem.GetElementsByTagName("valueSet")[0], fElem.GetElementsByTagName("valueSet")[0]);
+                                            }
+                                            catch
+                                            {
+                                                MessageBox.Show("Please ensure that both files selected are post API38 \nand do not contain \"picklistValue\" instead of valueset");
+                                            }
+                                        }
                                     }
                                 }
                             }

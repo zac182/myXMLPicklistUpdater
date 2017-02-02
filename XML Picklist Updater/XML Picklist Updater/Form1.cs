@@ -85,7 +85,7 @@ namespace XML_Picklist_Updater
                             {
                                 XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
                                 XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
-                                foreach (XmlElement ffElem in fNode)
+                                foreach (XmlElement ffElem in ffNode)
                                 {
                                     XmlNodeList eeType = ffElem.GetElementsByTagName("type");
                                     if (eeType.Count != 0)
@@ -95,24 +95,9 @@ namespace XML_Picklist_Updater
                                             XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
                                             if (eFullName[0].InnerText == eeFullName[0].InnerText)
                                             {
-                                                try
-                                                {
-                                                    XmlNodeList vsNode = fElem.GetElementsByTagName("valueSet");
-                                                    XmlNodeList vvssNode = ffElem.GetElementsByTagName("valueSet");
-                                                    foreach (XmlElement vsElem in vsNode)
-                                                    {
-                                                        vsElem.RemoveAll();
-                                                        foreach (XmlElement vvssElem in vvssNode)
-                                                        {
-                                                            XmlNode importNode = doc1.ImportNode(vvssElem, true);
-                                                            vsElem.AppendChild(importNode);
-                                                        }
-                                                    }
-                                                }
-                                                catch
-                                                {
-                                                    MessageBox.Show("Please ensure that both files selected are post API38 \nand do not contain \"picklistValue\" instead of valueset");
-                                                }
+                                                XmlNode vsNode = fElem.GetElementsByTagName("valueSet")[0];
+                                                XmlNode vvssNode = doc1.ImportNode(ffElem.GetElementsByTagName("valueSet")[0], true);
+                                                fElem.ReplaceChild(vvssNode, vsNode);
                                             }
                                         }
                                     }

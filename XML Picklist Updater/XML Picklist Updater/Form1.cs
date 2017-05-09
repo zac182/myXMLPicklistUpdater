@@ -208,5 +208,10 @@ namespace XML_Picklist_Updater
                 }
             }
         }
+
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("\t\tVersion 1.0\r\n\n\tDeveloped by D'Andrea López Fabrizio Carlo\r\n\n\tSpecial Thanks to MMS Ops Dev ADC Team\r\n\n\tFor bugs or improvements send an email to:\n\r\tf.dandrea.lopez@accenture.com");
+        }
     }
 }

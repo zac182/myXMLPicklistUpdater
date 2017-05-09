@@ -146,6 +146,7 @@ namespace XML_Picklist_Updater
                                                 if (!pvElem.HasChildNodes || !ppvvElem.HasChildNodes)
                                                 {
                                                     MessageBox.Show("Please verify that the files are corresponding to Salesforce API 39", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    brk = true;
                                                     break;
                                                 }
                                                 pvElem.RemoveAll();

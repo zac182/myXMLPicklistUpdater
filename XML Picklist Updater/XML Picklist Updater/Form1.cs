@@ -71,109 +71,139 @@ namespace XML_Picklist_Updater
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                XmlNodeList iNode = doc1.GetElementsByTagName("CustomObject");
-                XmlNodeList fNode = ((XmlElement)iNode[0]).GetElementsByTagName("fields");
-                foreach (XmlElement fElem in fNode)
+                bool writefile = true;
+                if (File.Exists(folderBrowserDialog1.SelectedPath + "\\" +filename))
                 {
-                    XmlNodeList eType = fElem.GetElementsByTagName("type");
-                    if (eType.Count != 0)
+                    DialogResult yesno = MessageBox.Show("The file already exists in that folder.\r\nOverwrite that file?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (yesno == DialogResult.No)
                     {
-                        if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
+                        writefile = false;
+                    }
+                }
+                if (writefile)
+                {
+                    XmlNodeList iNode = doc1.GetElementsByTagName("CustomObject");
+                    XmlNodeList fNode = ((XmlElement)iNode[0]).GetElementsByTagName("fields");
+                    foreach (XmlElement fElem in fNode)
+                    {
+                        XmlNodeList eType = fElem.GetElementsByTagName("type");
+                        if (eType.Count != 0)
                         {
-                            XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
-                            if (checkedListBox1.CheckedItems.Contains(eFullName[0].InnerText))
+                            if (eType[0].InnerText == "Picklist" || eType[0].InnerText == "MultiselectPicklist")
                             {
+                                XmlNodeList eFullName = fElem.GetElementsByTagName("fullName");
+                                if (checkedListBox1.CheckedItems.Contains(eFullName[0].InnerText))
+                                {
+                                    XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
+                                    XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
+                                    foreach (XmlElement ffElem in ffNode)
+                                    {
+                                        XmlNodeList eeType = ffElem.GetElementsByTagName("type");
+                                        if (eeType.Count != 0)
+                                        {
+                                            if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
+                                            {
+                                                XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
+                                                if (eFullName[0].InnerText == eeFullName[0].InnerText)
+                                                {
+                                                    XmlNode vsNode = fElem.GetElementsByTagName("valueSet")[0];
+                                                    XmlNode vvssNode = doc1.ImportNode(ffElem.GetElementsByTagName("valueSet")[0], true);
+                                                    if (!vsNode.HasChildNodes || !vvssNode.HasChildNodes)
+                                                    {
+                                                        MessageBox.Show("Please verify that the files are corresponding to Salesforce API 39", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        break;
+                                                    }
+                                                    fElem.ReplaceChild(vvssNode, vsNode);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    XmlNodeList rNode = ((XmlElement)iNode[0]).GetElementsByTagName("recordTypes");
+                    foreach (XmlElement rElem in rNode)
+                    {
+                        XmlNodeList ePicklistValue = rElem.GetElementsByTagName("picklistValues");
+                        foreach (XmlElement pvElem in ePicklistValue)
+                        {
+                            if (checkedListBox1.CheckedItems.Contains(pvElem.GetElementsByTagName("picklist")[0].InnerText))
+                            {
+                                bool brk = false;
                                 XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
-                                XmlNodeList ffNode = ((XmlElement)iiNode[0]).GetElementsByTagName("fields");
-                                foreach (XmlElement ffElem in ffNode)
+                                XmlNodeList rrNode = ((XmlElement)iiNode[0]).GetElementsByTagName("recordTypes");
+                                foreach (XmlElement rrElem in rrNode)
                                 {
-                                    XmlNodeList eeType = ffElem.GetElementsByTagName("type");
-                                    if (eeType.Count != 0)
+                                    if (rrElem.GetElementsByTagName("fullName")[0].InnerText == rElem.GetElementsByTagName("fullName")[0].InnerText)
                                     {
-                                        if (eeType[0].InnerText == "Picklist" || eeType[0].InnerText == "MultiselectPicklist")
+                                        XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
+                                        foreach (XmlElement ppvvElem in eePicklistValue)
                                         {
-                                            XmlNodeList eeFullName = ffElem.GetElementsByTagName("fullName");
-                                            if (eFullName[0].InnerText == eeFullName[0].InnerText)
+                                            if (pvElem.GetElementsByTagName("picklist")[0].InnerText == ppvvElem.GetElementsByTagName("picklist")[0].InnerText)
                                             {
-                                                XmlNode vsNode = fElem.GetElementsByTagName("valueSet")[0];
-                                                XmlNode vvssNode = doc1.ImportNode(ffElem.GetElementsByTagName("valueSet")[0], true);
-                                                fElem.ReplaceChild(vvssNode, vsNode);
+                                                if (!pvElem.HasChildNodes || !ppvvElem.HasChildNodes)
+                                                {
+                                                    MessageBox.Show("Please verify that the files are corresponding to Salesforce API 39", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    break;
+                                                }
+                                                pvElem.RemoveAll();
+                                                foreach (XmlElement node in ppvvElem)
+                                                {
+                                                    XmlNode importNode = doc1.ImportNode(node, true);
+                                                    pvElem.AppendChild(importNode);
+                                                }
+                                                brk = true;
+                                                break;
                                             }
+                                        }
+                                        if (brk)
+                                        {
+                                            break;
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
-                XmlNodeList rNode = ((XmlElement)iNode[0]).GetElementsByTagName("recordTypes");
-                foreach (XmlElement rElem in rNode)
-                {
-                    XmlNodeList ePicklistValue = rElem.GetElementsByTagName("picklistValues");
-                    foreach(XmlElement pvElem in ePicklistValue)
+                    XmlWriterSettings settings = new XmlWriterSettings
                     {
-                        if (checkedListBox1.CheckedItems.Contains(pvElem.GetElementsByTagName("picklist")[0].InnerText))
-                        {
-                            XmlNodeList iiNode = doc2.GetElementsByTagName("CustomObject");
-                            XmlNodeList rrNode = ((XmlElement)iiNode[0]).GetElementsByTagName("recordTypes");
-                            foreach (XmlElement rrElem in rrNode)
-                            {
-                                if (rrElem.GetElementsByTagName("fullName")[0].InnerText == rElem.GetElementsByTagName("fullName")[0].InnerText)
-                                {
-                                    XmlNodeList eePicklistValue = rrElem.GetElementsByTagName("picklistValues");
-                                    foreach (XmlElement ppvvElem in eePicklistValue)
-                                    {
-                                        if (pvElem.GetElementsByTagName("picklist")[0].InnerText == ppvvElem.GetElementsByTagName("picklist")[0].InnerText)
-                                        {
-                                            pvElem.RemoveAll();
-                                            foreach (XmlElement node in ppvvElem)
-                                            {
-                                                XmlNode importNode = doc1.ImportNode(node, true);
-                                                pvElem.AppendChild(importNode);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        Encoding = Encoding.UTF8,
+                        Indent = true,
+                        IndentChars = "    ",
+                        NewLineChars = "\r\n",
+                        NewLineHandling = NewLineHandling.Replace,
+                        CloseOutput = true
+                    };
+                    XmlWriter writer = null;
+                    writer = XmlWriter.Create(folderBrowserDialog1.SelectedPath + "\\" + filename, settings);
+                    doc1.Save(writer);
+                    writer.Close();
+                    string xmlString = System.IO.File.ReadAllText(folderBrowserDialog1.SelectedPath + "\\" + filename);
+                    string xmlpart1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+                    string xmlpart2 = xmlString.Substring(38, 65);
+                    string xmlpart3 = xmlString.Substring(103);
+                    string removable1 = "\'";
+                    string removable2 = "\"";
+                    string removable3 = " />";
+                    while (xmlpart3.Contains(removable1))
+                    {
+                        xmlpart3 = xmlpart3.Replace(removable1, "&apos;");
                     }
-                }
-                XmlWriterSettings settings = new XmlWriterSettings
-                {
-                    Encoding = Encoding.UTF8,
-                    Indent = true,
-                    IndentChars = "    ",
-                    NewLineChars = "\r\n",
-                    NewLineHandling = NewLineHandling.Replace,
-                    CloseOutput = true
-                };
-                XmlWriter writer = null;
-                writer = XmlWriter.Create(folderBrowserDialog1.SelectedPath + "\\" + filename, settings);
-                doc1.Save(writer);
-                writer.Close();
-                string xmlString = System.IO.File.ReadAllText(folderBrowserDialog1.SelectedPath + "\\" + filename);
-                string xmlpart1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-                string xmlpart2 = xmlString.Substring(38, 65);
-                string xmlpart3 = xmlString.Substring(103);
-                string removable1 = "\'";
-                string removable2 = "\"";
-                string removable3 = " />";
-                while (xmlpart3.Contains(removable1))
-                {
-                    xmlpart3 = xmlpart3.Replace(removable1, "&apos;");
-                }
-                while (xmlpart3.Contains(removable2))
-                {
-                    xmlpart3 = xmlpart3.Replace(removable2, "&quot;");
-                }
-                while (xmlpart3.Contains(removable3))
-                {
-                    xmlpart3 = xmlpart3.Replace(removable3, "/>");
-                }
-                using (StreamWriter sw = File.CreateText(folderBrowserDialog1.SelectedPath + "\\" + filename))
-                {
-                    sw.Write(xmlpart1 + xmlpart2 + xmlpart3);
-                    sw.WriteLine("");
+                    while (xmlpart3.Contains(removable2))
+                    {
+                        xmlpart3 = xmlpart3.Replace(removable2, "&quot;");
+                    }
+                    while (xmlpart3.Contains(removable3))
+                    {
+                        xmlpart3 = xmlpart3.Replace(removable3, "/>");
+                    }
+                    using (StreamWriter sw = File.CreateText(folderBrowserDialog1.SelectedPath + "\\" + filename))
+                    {
+                        sw.Write(xmlpart1 + xmlpart2 + xmlpart3);
+                        sw.WriteLine("");
+                    }
                 }
             }
         }

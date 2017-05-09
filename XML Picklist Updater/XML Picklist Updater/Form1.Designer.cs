@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -71,7 +72,9 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileName = "";
+            this.openFileDialog1.Title = "Select Git file";
+            this.openFileDialog1.Filter = "Objects (*.object)|*.object";
             // 
             // checkedListBox1
             // 
@@ -86,7 +89,9 @@
             // 
             // openFileDialog2
             // 
-            this.openFileDialog2.FileName = "openFileDialog1";
+            this.openFileDialog2.FileName = "";
+            this.openFileDialog2.Title = "Select environment file";
+            this.openFileDialog2.Filter = "Objects (*.object)|*.object";
             // 
             // Form1
             // 
@@ -97,6 +102,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "XML Picklist Updater";
             this.ResumeLayout(false);

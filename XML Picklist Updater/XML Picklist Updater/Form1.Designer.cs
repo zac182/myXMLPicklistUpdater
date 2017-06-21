@@ -45,6 +45,8 @@
             this.analyzeFilesButton = new System.Windows.Forms.Button();
             this.srcAsDestCheckBox = new System.Windows.Forms.CheckBox();
             this.selectLabel = new System.Windows.Forms.Label();
+            this.selectAllButton = new System.Windows.Forms.Button();
+            this.unselectAllButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,7 +92,7 @@
             this.checkedListBox1.Location = new System.Drawing.Point(14, 37);
             this.checkedListBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(612, 344);
+            this.checkedListBox1.Size = new System.Drawing.Size(612, 310);
             this.checkedListBox1.TabIndex = 5;
             this.checkedListBox1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBox1_ItemCheck);
             // 
@@ -218,11 +220,39 @@
             this.selectLabel.Size = new System.Drawing.Size(0, 18);
             this.selectLabel.TabIndex = 11;
             // 
+            // selectAllButton
+            // 
+            this.selectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectAllButton.Enabled = false;
+            this.selectAllButton.Location = new System.Drawing.Point(21, 367);
+            this.selectAllButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.selectAllButton.Name = "selectAllButton";
+            this.selectAllButton.Size = new System.Drawing.Size(113, 32);
+            this.selectAllButton.TabIndex = 12;
+            this.selectAllButton.Text = "Select All";
+            this.selectAllButton.UseVisualStyleBackColor = true;
+            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
+            // 
+            // unselectAllButton
+            // 
+            this.unselectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.unselectAllButton.Enabled = false;
+            this.unselectAllButton.Location = new System.Drawing.Point(507, 367);
+            this.unselectAllButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.unselectAllButton.Name = "unselectAllButton";
+            this.unselectAllButton.Size = new System.Drawing.Size(113, 32);
+            this.unselectAllButton.TabIndex = 13;
+            this.unselectAllButton.Text = "Unselect All";
+            this.unselectAllButton.UseVisualStyleBackColor = true;
+            this.unselectAllButton.Click += new System.EventHandler(this.unselectAllButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 600);
+            this.Controls.Add(this.unselectAllButton);
+            this.Controls.Add(this.selectAllButton);
             this.Controls.Add(this.selectLabel);
             this.Controls.Add(this.srcAsDestCheckBox);
             this.Controls.Add(this.analyzeFilesButton);
@@ -268,6 +298,8 @@
         private System.Windows.Forms.Button analyzeFilesButton;
         private System.Windows.Forms.CheckBox srcAsDestCheckBox;
         private System.Windows.Forms.Label selectLabel;
+        private System.Windows.Forms.Button selectAllButton;
+        private System.Windows.Forms.Button unselectAllButton;
     }
 }
 

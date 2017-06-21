@@ -101,6 +101,7 @@ namespace XML_Picklist_Updater
                     selectAllButton.Enabled = true;
                     unselectAllButton.Enabled = true;
                     checkedListBox1.Enabled = true;
+                    CBLCoverImg.Hide();
                 }
                 else
                 {

@@ -47,20 +47,25 @@
             this.selectLabel = new System.Windows.Forms.Label();
             this.selectAllButton = new System.Windows.Forms.Button();
             this.unselectAllButton = new System.Windows.Forms.Button();
+            this.CBLCoverImg = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CBLCoverImg)).BeginInit();
             this.SuspendLayout();
             // 
             // loadGitXMLButton
             // 
             this.loadGitXMLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadGitXMLButton.Location = new System.Drawing.Point(493, 22);
+            this.loadGitXMLButton.Image = ((System.Drawing.Image)(resources.GetObject("loadGitXMLButton.Image")));
+            this.loadGitXMLButton.Location = new System.Drawing.Point(472, 15);
             this.loadGitXMLButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loadGitXMLButton.Name = "loadGitXMLButton";
-            this.loadGitXMLButton.Size = new System.Drawing.Size(113, 32);
+            this.loadGitXMLButton.Size = new System.Drawing.Size(134, 42);
             this.loadGitXMLButton.TabIndex = 2;
             this.loadGitXMLButton.Text = "Load Git XML";
+            this.loadGitXMLButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.loadGitXMLButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.loadGitXMLButton.UseVisualStyleBackColor = true;
             this.loadGitXMLButton.Click += new System.EventHandler(this.loadGitXMLButton_Click);
             // 
@@ -68,12 +73,15 @@
             // 
             this.createNewXMLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.createNewXMLButton.Enabled = false;
-            this.createNewXMLButton.Location = new System.Drawing.Point(506, 551);
+            this.createNewXMLButton.Image = ((System.Drawing.Image)(resources.GetObject("createNewXMLButton.Image")));
+            this.createNewXMLButton.Location = new System.Drawing.Point(486, 551);
             this.createNewXMLButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.createNewXMLButton.Name = "createNewXMLButton";
-            this.createNewXMLButton.Size = new System.Drawing.Size(113, 32);
+            this.createNewXMLButton.Size = new System.Drawing.Size(134, 42);
             this.createNewXMLButton.TabIndex = 3;
             this.createNewXMLButton.Text = "Create New XML";
+            this.createNewXMLButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.createNewXMLButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.createNewXMLButton.UseVisualStyleBackColor = true;
             this.createNewXMLButton.Click += new System.EventHandler(this.createNewXMLButton_Click);
             // 
@@ -142,7 +150,7 @@
             this.gitXMLPathTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gitXMLPathTextBox.Name = "gitXMLPathTextBox";
             this.gitXMLPathTextBox.ReadOnly = true;
-            this.gitXMLPathTextBox.Size = new System.Drawing.Size(478, 21);
+            this.gitXMLPathTextBox.Size = new System.Drawing.Size(459, 21);
             this.gitXMLPathTextBox.TabIndex = 3;
             this.gitXMLPathTextBox.TextChanged += new System.EventHandler(this.enableSeachButton);
             // 
@@ -153,19 +161,22 @@
             this.orgXMLPathTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.orgXMLPathTextBox.Name = "orgXMLPathTextBox";
             this.orgXMLPathTextBox.ReadOnly = true;
-            this.orgXMLPathTextBox.Size = new System.Drawing.Size(478, 21);
+            this.orgXMLPathTextBox.Size = new System.Drawing.Size(459, 21);
             this.orgXMLPathTextBox.TabIndex = 3;
             this.orgXMLPathTextBox.TextChanged += new System.EventHandler(this.enableSeachButton);
             // 
             // loadOrgXMLButton
             // 
             this.loadOrgXMLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.loadOrgXMLButton.Location = new System.Drawing.Point(492, 22);
+            this.loadOrgXMLButton.Image = ((System.Drawing.Image)(resources.GetObject("loadOrgXMLButton.Image")));
+            this.loadOrgXMLButton.Location = new System.Drawing.Point(472, 15);
             this.loadOrgXMLButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loadOrgXMLButton.Name = "loadOrgXMLButton";
-            this.loadOrgXMLButton.Size = new System.Drawing.Size(113, 32);
+            this.loadOrgXMLButton.Size = new System.Drawing.Size(134, 42);
             this.loadOrgXMLButton.TabIndex = 2;
             this.loadOrgXMLButton.Text = "Load Org XML";
+            this.loadOrgXMLButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.loadOrgXMLButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.loadOrgXMLButton.UseVisualStyleBackColor = true;
             this.loadOrgXMLButton.Click += new System.EventHandler(this.loadOrgXMLButton_Click);
             // 
@@ -188,12 +199,15 @@
             // 
             this.analyzeFilesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.analyzeFilesButton.Enabled = false;
+            this.analyzeFilesButton.Image = ((System.Drawing.Image)(resources.GetObject("analyzeFilesButton.Image")));
             this.analyzeFilesButton.Location = new System.Drawing.Point(21, 551);
             this.analyzeFilesButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.analyzeFilesButton.Name = "analyzeFilesButton";
-            this.analyzeFilesButton.Size = new System.Drawing.Size(113, 32);
+            this.analyzeFilesButton.Size = new System.Drawing.Size(134, 42);
             this.analyzeFilesButton.TabIndex = 9;
             this.analyzeFilesButton.Text = "Analyze Files";
+            this.analyzeFilesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.analyzeFilesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.analyzeFilesButton.UseVisualStyleBackColor = true;
             this.analyzeFilesButton.Click += new System.EventHandler(this.analyzeFilesButton_Click);
             // 
@@ -202,7 +216,7 @@
             this.srcAsDestCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.srcAsDestCheckBox.AutoSize = true;
             this.srcAsDestCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.srcAsDestCheckBox.Location = new System.Drawing.Point(319, 559);
+            this.srcAsDestCheckBox.Location = new System.Drawing.Point(300, 562);
             this.srcAsDestCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.srcAsDestCheckBox.Name = "srcAsDestCheckBox";
             this.srcAsDestCheckBox.Size = new System.Drawing.Size(180, 22);
@@ -215,7 +229,7 @@
             // 
             this.selectLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.selectLabel.AutoSize = true;
-            this.selectLabel.Location = new System.Drawing.Point(141, 558);
+            this.selectLabel.Location = new System.Drawing.Point(162, 562);
             this.selectLabel.Name = "selectLabel";
             this.selectLabel.Size = new System.Drawing.Size(0, 18);
             this.selectLabel.TabIndex = 11;
@@ -224,12 +238,15 @@
             // 
             this.selectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.selectAllButton.Enabled = false;
-            this.selectAllButton.Location = new System.Drawing.Point(21, 367);
+            this.selectAllButton.Image = ((System.Drawing.Image)(resources.GetObject("selectAllButton.Image")));
+            this.selectAllButton.Location = new System.Drawing.Point(21, 355);
             this.selectAllButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.selectAllButton.Name = "selectAllButton";
-            this.selectAllButton.Size = new System.Drawing.Size(113, 32);
+            this.selectAllButton.Size = new System.Drawing.Size(134, 42);
             this.selectAllButton.TabIndex = 12;
             this.selectAllButton.Text = "Select All";
+            this.selectAllButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.selectAllButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.selectAllButton.UseVisualStyleBackColor = true;
             this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
             // 
@@ -237,20 +254,39 @@
             // 
             this.unselectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.unselectAllButton.Enabled = false;
-            this.unselectAllButton.Location = new System.Drawing.Point(507, 367);
+            this.unselectAllButton.Image = ((System.Drawing.Image)(resources.GetObject("unselectAllButton.Image")));
+            this.unselectAllButton.Location = new System.Drawing.Point(486, 355);
             this.unselectAllButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.unselectAllButton.Name = "unselectAllButton";
-            this.unselectAllButton.Size = new System.Drawing.Size(113, 32);
+            this.unselectAllButton.Size = new System.Drawing.Size(134, 42);
             this.unselectAllButton.TabIndex = 13;
             this.unselectAllButton.Text = "Unselect All";
+            this.unselectAllButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.unselectAllButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.unselectAllButton.UseVisualStyleBackColor = true;
             this.unselectAllButton.Click += new System.EventHandler(this.unselectAllButton_Click);
+            // 
+            // CBLCoverImg
+            // 
+            this.CBLCoverImg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBLCoverImg.Image = ((System.Drawing.Image)(resources.GetObject("CBLCoverImg.Image")));
+            this.CBLCoverImg.InitialImage = ((System.Drawing.Image)(resources.GetObject("CBLCoverImg.InitialImage")));
+            this.CBLCoverImg.Location = new System.Drawing.Point(14, 37);
+            this.CBLCoverImg.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.CBLCoverImg.Name = "CBLCoverImg";
+            this.CBLCoverImg.Size = new System.Drawing.Size(612, 310);
+            this.CBLCoverImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.CBLCoverImg.TabIndex = 14;
+            this.CBLCoverImg.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(640, 600);
+            this.Controls.Add(this.CBLCoverImg);
             this.Controls.Add(this.unselectAllButton);
             this.Controls.Add(this.selectAllButton);
             this.Controls.Add(this.selectLabel);
@@ -276,6 +312,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CBLCoverImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -300,6 +337,7 @@
         private System.Windows.Forms.Label selectLabel;
         private System.Windows.Forms.Button selectAllButton;
         private System.Windows.Forms.Button unselectAllButton;
+        private System.Windows.Forms.PictureBox CBLCoverImg;
     }
 }
 

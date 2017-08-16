@@ -18,12 +18,6 @@ namespace XML_Picklist_Updater
             InitializeComponent();
         }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
-            Form3 easterEgg = new Form3();
-            easterEgg.ShowDialog();
-        }
-
         private void EmailLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("mailto:f.dandrea.lopez@accenture.com?subject=XML Picklist Updater App: Improvement Report");
@@ -32,6 +26,12 @@ namespace XML_Picklist_Updater
         private void IconAttributeLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://p.yusukekamiyamane.com/");
+        }
+
+        private void SpecialThanksLabel_Click(object sender, EventArgs e)
+        {
+            Form3 easterEgg = new Form3();
+            easterEgg.ShowDialog();
         }
     }
 }

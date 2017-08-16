@@ -29,6 +29,10 @@ namespace XML_Picklist_Updater
         {
             try
             {
+                if (Directory.Exists(gitXMLPathTextBox.Text))
+                {
+                    openFileDialog1.InitialDirectory = gitXMLPathTextBox.Text;
+                }
                 DialogResult result1 = openFileDialog1.ShowDialog();
                 if (result1 == DialogResult.OK)
                 {
@@ -37,6 +41,8 @@ namespace XML_Picklist_Updater
                         gitXMLPathTextBox.Text = openFileDialog1.FileName;
                         doc1.Load(gitXMLPathTextBox.Text);
                         gitFileName = openFileDialog1.SafeFileName;
+                        Properties.Settings.Default.PathReminderGit = gitXMLPathTextBox.Text.Substring(0, gitXMLPathTextBox.Text.Length - gitFileName.Length);
+                        Properties.Settings.Default.Save();
                     }
                     else
                     {
@@ -54,6 +60,10 @@ namespace XML_Picklist_Updater
 
         private void loadOrgXMLButton_Click(object sender, EventArgs e)
         {
+            if (Directory.Exists(orgXMLPathTextBox.Text))
+            {
+                openFileDialog2.InitialDirectory = orgXMLPathTextBox.Text;
+            }
             DialogResult result2 = openFileDialog2.ShowDialog();
             if (result2 == DialogResult.OK)
             {
@@ -62,6 +72,8 @@ namespace XML_Picklist_Updater
                     orgXMLPathTextBox.Text = openFileDialog2.FileName;
                     doc2.Load(orgXMLPathTextBox.Text);
                     orgFileName = openFileDialog2.SafeFileName;
+                    Properties.Settings.Default.PathReminderEnv = orgXMLPathTextBox.Text.Substring(0, orgXMLPathTextBox.Text.Length - orgFileName.Length);
+                    Properties.Settings.Default.Save();
                 }
                 else
                 {
@@ -303,7 +315,9 @@ namespace XML_Picklist_Updater
         {
             try
             {
-                Text = "XML Picklist Updater v1.0";
+                Text = "XML Picklist Updater v1.1";
+                gitXMLPathTextBox.Text = Properties.Settings.Default.PathReminderGit;
+                orgXMLPathTextBox.Text = Properties.Settings.Default.PathReminderEnv;
                 timer1 = new Timer();
                 timer1.Tick += new EventHandler(timer1_Tick);
                 timer1.Interval = 10; // in miliseconds
@@ -352,7 +366,7 @@ namespace XML_Picklist_Updater
 
         private void enableSeachButton(object sender, EventArgs e)
         {
-            if (gitXMLPathTextBox.Text.Trim() != "" && orgXMLPathTextBox.Text.Trim() != "" && gitFileName == orgFileName)
+            if (gitXMLPathTextBox.Text.Trim() != "" && orgXMLPathTextBox.Text.Trim() != "" && gitFileName == orgFileName && gitFileName != "")
             {
                 selectLabel.ForeColor = System.Drawing.Color.Black;
                 selectLabel.Text = "";

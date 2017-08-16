@@ -107,6 +107,7 @@
             this.SpecialThanksLabel.Size = new System.Drawing.Size(239, 18);
             this.SpecialThanksLabel.TabIndex = 27;
             this.SpecialThanksLabel.Text = "Special Thanks to MMS Ops Dev ADC Team";
+            this.SpecialThanksLabel.Click += new System.EventHandler(this.SpecialThanksLabel_Click);
             // 
             // DeveloperLabel
             // 

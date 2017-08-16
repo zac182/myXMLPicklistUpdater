@@ -229,7 +229,7 @@
             // 
             this.selectLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.selectLabel.AutoSize = true;
-            this.selectLabel.Location = new System.Drawing.Point(162, 562);
+            this.selectLabel.Location = new System.Drawing.Point(261, 367);
             this.selectLabel.Name = "selectLabel";
             this.selectLabel.Size = new System.Drawing.Size(0, 18);
             this.selectLabel.TabIndex = 11;

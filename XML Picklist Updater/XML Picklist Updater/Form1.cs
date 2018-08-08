@@ -328,7 +328,8 @@ namespace XML_Picklist_Updater
         {
             try
             {
-				this.Text = "XML Picklist Updater " + Properties.Settings.Default.AppVersion;
+				string version = Properties.Settings.Default.AppVersion;
+				this.Text = "XML Picklist Updater v" + version;
                 gitXMLPathTextBox.Text = Properties.Settings.Default.PathReminderGit;
                 orgXMLPathTextBox.Text = Properties.Settings.Default.PathReminderEnv;
                 timer1 = new Timer();
@@ -339,13 +340,13 @@ namespace XML_Picklist_Updater
                 try
                 {
                     WebClient download = new WebClient();
-                    string orig = download.DownloadString("https://raw.githubusercontent.com/fabriziodandrea/myXMLPicklistUpdater/master/XML%20Picklist%20Updater/XML%20Picklist%20Updater/Form1.cs");
-                    if (!orig.Contains(this.Text))
+                    string orig = download.DownloadString("https://raw.githubusercontent.com/leanBCS/myXMLPicklistUpdater/master/XML%20Picklist%20Updater/XML%20Picklist%20Updater/Properties/Settings.settings");
+                    if (!orig.Contains(version))
                     {
                         DialogResult result = MessageBox.Show("There is a new version available!\nDownload it now?", "Good News", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
                         {
-                            System.Diagnostics.Process.Start("https://myoffice.accenture.com/personal/f_dandrea_lopez_accenture_com/_layouts/15/guestaccess.aspx?guestaccesstoken=Asizh3G1rOPyFwTvR1jriHV1juDxRvjYrWRwDRX7IGI%3d&docid=2_0d67cf356d8364050b52ff75d5144f36a&rev=1");
+                            //System.Diagnostics.Process.Start("");
                             Close();
                         }
                     }

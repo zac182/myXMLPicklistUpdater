@@ -29,10 +29,11 @@ namespace XML_Picklist_Updater
         {
             try
             {
-                if (Directory.Exists(gitXMLPathTextBox.Text))
-                {
-                    openFileDialog1.InitialDirectory = gitXMLPathTextBox.Text;
-                }
+				if (RetrieveInitialDirectory(gitXMLPathTextBox.Text))
+				{
+					openFileDialog1.InitialDirectory = gitXMLPathTextBox.Text;
+				}
+
                 DialogResult result1 = openFileDialog1.ShowDialog();
                 if (result1 == DialogResult.OK)
                 {
@@ -58,12 +59,24 @@ namespace XML_Picklist_Updater
             }
         }
 
+		private bool RetrieveInitialDirectory(string filePath)
+		{
+			bool result = false;
+			if (!String.IsNullOrEmpty(filePath))
+			{
+				string path = filePath.Substring(0, filePath.LastIndexOf('\\'));
+				result = Directory.Exists(path);
+			}
+			return result;
+		}
+
         private void loadOrgXMLButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(orgXMLPathTextBox.Text))
-            {
-                openFileDialog2.InitialDirectory = orgXMLPathTextBox.Text;
-            }
+			if (RetrieveInitialDirectory(orgXMLPathTextBox.Text))
+			{
+				openFileDialog2.InitialDirectory = orgXMLPathTextBox.Text;
+			}
+
             DialogResult result2 = openFileDialog2.ShowDialog();
             if (result2 == DialogResult.OK)
             {
@@ -315,7 +328,7 @@ namespace XML_Picklist_Updater
         {
             try
             {
-                Text = "XML Picklist Updater v1.1";
+				this.Text = "XML Picklist Updater " + Properties.Settings.Default.AppVersion;
                 gitXMLPathTextBox.Text = Properties.Settings.Default.PathReminderGit;
                 orgXMLPathTextBox.Text = Properties.Settings.Default.PathReminderEnv;
                 timer1 = new Timer();
@@ -327,7 +340,7 @@ namespace XML_Picklist_Updater
                 {
                     WebClient download = new WebClient();
                     string orig = download.DownloadString("https://raw.githubusercontent.com/fabriziodandrea/myXMLPicklistUpdater/master/XML%20Picklist%20Updater/XML%20Picklist%20Updater/Form1.cs");
-                    if (!orig.Contains(Text))
+                    if (!orig.Contains(this.Text))
                     {
                         DialogResult result = MessageBox.Show("There is a new version available!\nDownload it now?", "Good News", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (result == DialogResult.Yes)
